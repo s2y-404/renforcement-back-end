@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.routers import DefaultRouter
 
-from renforcementbackend.views import auteur, categorie, commentaire, editeur, emprunt, evaluation, exemplaire, livre
+from .views import auteur, categorie, commentaire, editeur, emprunt, evaluation, exemplaire, livre
 
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view

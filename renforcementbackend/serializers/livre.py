@@ -2,6 +2,10 @@ from rest_framework import serializers
 from ..models import Livre
 
 class LivreSerializer(serializers.ModelSerializer):
+    auteurs = serializers.StringRelatedField(many=True)
+    categories = serializers.StringRelatedField(many=True)
+    editeur = serializers.StringRelatedField() 
+
     class Meta:
         model = Livre
-        fields = ['id', 'titre', 'résumé', 'date_de_publication', 'isbn', 'nombre_de_pages', 'langue', 'image_de_couverture', 'editeur', 'format']
+        fields = "__all__"

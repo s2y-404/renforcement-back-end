@@ -11,6 +11,8 @@ class Livre(models.Model):
     image_de_couverture = models.ImageField(upload_to='couvertures_livres/', null=True, blank=True)
     editeur = models.ForeignKey(Editeur, on_delete=models.SET_NULL, null=True)
     format = models.CharField(max_length=50)
+    auteurs = models.ManyToManyField('Auteur', related_name='livres')
+    categories = models.ManyToManyField('Categorie', related_name='livres')
 
     def __str__(self):
         return self.titre
