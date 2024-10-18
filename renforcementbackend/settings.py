@@ -125,10 +125,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
     {
-        'NAME': 'renforcementbackend.auth.UppercaseValidator.UppercaseValidator',
+        'NAME': 'renforcementbackend.validators.UppercaseValidator.UppercaseValidator',
     },
     {
-        'NAME': 'renforcementbackend.auth.LowercaseValidator.LowercaseValidator',
+        'NAME': 'renforcementbackend.validators.LowercaseValidator.LowercaseValidator',
     },
 ]
 
