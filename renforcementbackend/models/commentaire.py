@@ -10,7 +10,7 @@ class Commentaire(models.Model):
     visible = models.BooleanField(default=True)
     modéré = models.BooleanField(default=False)
     livre = models.ForeignKey(Livre, on_delete=models.CASCADE, related_name='commentaires_livre')
-    uilisateur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commentaires_user', null=True)
+    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commentaires_user', null=True, blank=True)
 
     def __str__(self):
         return self.contenu

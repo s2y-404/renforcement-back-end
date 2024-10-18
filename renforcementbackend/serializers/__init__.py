@@ -6,4 +6,3 @@ from .editeur import EditeurSerializer
 from .emprunt import EmpruntSerializer
 from .evaluation import EvaluationSerializer
 from .exemplaire import ExemplaireSerializer
-from .user import UserSerializer
