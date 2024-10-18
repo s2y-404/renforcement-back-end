@@ -4,4 +4,4 @@ from ..models import Evaluation
 class EvaluationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Evaluation
-        fields = ['id', 'note', 'commentaire', 'date_évaluation', 'recommandé', 'titre']
+        fields = "__all__"

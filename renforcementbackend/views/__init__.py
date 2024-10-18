@@ -6,3 +6,4 @@ from .editeur import EditeurViewSet
 from .emprunt import EmpruntViewSet
 from .evaluation import EvaluationViewSet
 from .exemplaire import ExemplaireViewSet
+from .user import UserViewSet
