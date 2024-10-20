@@ -165,11 +165,13 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+import os
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sabineaurelie1@gmail.com'
-EMAIL_HOST_PASSWORD = "Ceci est 1 compte fake."
+EMAIL_HOST_USER = f'{os.getenv('EMAIL')}'
+EMAIL_HOST_PASSWORD = f'{os.getenv('PASSWORD')}'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

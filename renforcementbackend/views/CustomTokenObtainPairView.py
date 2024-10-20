@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
+import os
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
@@ -31,7 +32,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 send_mail(
                     'Votre code OTP',
                     f'Voici votre code OTP : {otp_code}',
-                    'sabineaurelie1@gmail.com',
+                    f'{os.getenv('EMAIL')}',
                     [user.email],
                     fail_silently=False,
                 )
