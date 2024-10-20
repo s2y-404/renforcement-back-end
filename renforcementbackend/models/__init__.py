@@ -6,3 +6,4 @@ from .emprunt import Emprunt
 from .evaluation import Evaluation
 from .exemplaire import Exemplaire
 from .livre import Livre
+from .otp import OTP

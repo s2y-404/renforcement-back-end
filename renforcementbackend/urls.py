@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.views import TokenBlacklistView
 from rest_framework.routers import DefaultRouter
+from .views import VerifyOTPView, CustomTokenObtainPairView
 
 from .views import auteur, categorie, commentaire, editeur, emprunt, evaluation, exemplaire, livre
 
@@ -33,10 +34,12 @@ router.register(r'livres', livre.LivreViewSet)
 
 urlpatterns = [
    path('admin/', admin.site.urls),
-   path('api/', include(router.urls)),
-   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-   path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+   path('/', include(router.urls)),
+   path('', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+   path('accounts/login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+   path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+   path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+   path('verify-otp/', VerifyOTPView.as_view(), name='verify_otp'),
    path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
