@@ -21,11 +21,9 @@ class CustomAuthView(APIView):
 
         user = authenticate(username=username, password=password)
         if user is not None:
-            # Générer un OTP
             totp = pyotp.TOTP(user.username, interval=300)
             otp_code = totp.now()
 
-            # Enregistrer l'OTP en base de données
             otp = OTP.objects.create(
                 user=user,
                 code=otp_code,

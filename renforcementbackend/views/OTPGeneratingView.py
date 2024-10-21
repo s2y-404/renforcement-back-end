@@ -7,9 +7,12 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.utils import timezone
 from datetime import timedelta
+from dotenv import load_dotenv
 import os
 
-class CustomTokenObtainPairView(TokenObtainPairView):
+load_dotenv()
+
+class OTPGeneratingView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
 
@@ -17,27 +20,27 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             user = self.get_user(request.data['username'])
             
             if user:
-                # Utilisation de l'ID de l'utilisateur pour générer un secret
                 secret = pyotp.random_base32()
                 totp = pyotp.TOTP(secret)
                 otp_code = totp.now()
-                
-                # Définir l'expiration de l'OTP
                 expires_at = timezone.now() + timedelta(minutes=5)
 
-                # Enregistrer l'OTP dans la base de données
                 OTP.objects.create(user=user, code=otp_code, expires_at=expires_at)
+            
+                try:
+                    send_mail(
+                        'Votre code OTP',
+                        f'Voici votre code OTP : {otp_code}',
+                        f'{os.getenv('EMAIL_HOST_USER')}',
+                        [user.email],
+                        fail_silently=False,
+                    )
+                    return Response({'message': 'OTP envoyé. Veuillez vérifier votre email.'}, status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({"detail": f"Une erreur s'est produite lors de l'envoi de l'e-mail : {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-                # Envoyer l'OTP par email
-                send_mail(
-                    'Votre code OTP',
-                    f'Voici votre code OTP : {otp_code}',
-                    f'{os.getenv('EMAIL')}',
-                    [user.email],
-                    fail_silently=False,
-                )
 
-                return Response({'message': 'OTP envoyé. Veuillez vérifier votre email.'}, status=status.HTTP_200_OK)
+            return Response({"detail": "Identifiants incorrects"}, status=status.HTTP_401_UNAUTHORIZED)
         
         return response
 

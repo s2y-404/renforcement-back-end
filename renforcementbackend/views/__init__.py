@@ -8,4 +8,4 @@ from .evaluation import EvaluationViewSet
 from .exemplaire import ExemplaireViewSet
 from .auth import CustomAuthView
 from .verifyOTP import VerifyOTPView
-from .CustomTokenObtainPairView import CustomTokenObtainPairView
+from .OTPGeneratingView import OTPGeneratingView

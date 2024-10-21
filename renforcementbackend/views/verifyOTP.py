@@ -20,10 +20,8 @@ class VerifyOTPView(APIView):
             if otp.is_expired():
                 return Response({'error': 'Le code OTP a expiré.'}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Supprimer l'OTP après validation
             otp.delete()
 
-            # Générer le token JWT
             refresh = RefreshToken.for_user(user)
             return Response({
                 'refresh': str(refresh),
